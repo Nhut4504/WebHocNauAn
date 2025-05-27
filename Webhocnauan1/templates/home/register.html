@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url(/static/images/2.jpg);
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .register-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 30px;
+            width: 320px;
+            text-align: center;
+            box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid black;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            background: white;
+            border: 1px solid black;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: lightgray;
+        }
+
+        .retry {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none; /* Ẩn ban đầu */
+        }
+        #myBtn-scroll {
+		  position: fixed;
+		  bottom: 20px;
+		  right: 30px;
+		  z-index: 99;
+		  border: none;
+		  outline: none;
+		  background-color: white;
+		  color: black;
+		  cursor: pointer;
+		  padding: 15px;
+		  border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Đăng ký</h2>
+        <input type="text" id="full_name" placeholder="Họ và tên">
+        <input type="text" id="account" placeholder="Nhập tài khoản">
+        <input type="password" id="password" placeholder="Nhập mật khẩu">
+        <input type="password" id="confirm-password" placeholder="Nhập lại mật khẩu">
+        <input type="email" id="email" placeholder="Địa chỉ email">
+        <button onclick="validateForm()">Xác nhận</button>
+        <div class="retry" id="retry-text">Hãy thử lại</div>
+    </div>
+
+    <script>
+        function validateForm() {
+            const full_name = document.getElementById("full_name").value.trim();
+            const account = document.getElementById("account").value.trim();
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            const email = document.getElementById("email").value.trim();
+            const retryText = document.getElementById("retry-text");
+    
+            if (full_name === "" || account === "" || password === "" || confirmPassword === "" || email === "") {
+                retryText.innerText = "Vui lòng điền đầy đủ thông tin!";
+                retryText.style.display = "block";
+                return;
+            }
+            if (password !== confirmPassword) {
+                retryText.innerText = "Mật khẩu không khớp!";
+                retryText.style.display = "block";
+                return;
+            }
+    
+            // Gửi dữ liệu đến Flask
+            fetch("/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ full_name, account, password, email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    retryText.innerText = "Đăng ký thành công!";
+                    retryText.style.color = "green";
+                    retryText.style.display = "block";
+                    setTimeout(() => window.location.href = "/login", 2000); // Chuyển hướng sau 2 giây
+                } else {
+                    retryText.innerText = data.error;
+                    retryText.style.color = "red";
+                    retryText.style.display = "block";
+                }
+            })
+            .catch(error => {
+                retryText.innerText = "Lỗi hệ thống, vui lòng thử lại!";
+                retryText.style.color = "red";
+                retryText.style.display = "block";
+            });
+        }
+    </script>
+    
+
+</body>
+<button onclick="topFunction()" id="myBtn-scroll" title="Home">
+    <a href="/">Trang chủ</a>
+</button>
+</html>

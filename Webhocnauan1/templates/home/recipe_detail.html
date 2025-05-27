@@ -1,0 +1,26 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ recipe.name }}</h1>
+    <img src="{{ url_for('static', filename='images/' + (recipe.image_url or 'default.jpg')) }}" 
+         alt="{{ recipe.name }}" width="300">
+    
+    <h3>Nguyên liệu:</h3>
+    <p>{{ recipe.ingredients }}</p>
+    
+    <h3>Hướng dẫn:</h3>
+    <p>{{ recipe.instructions | nl2br | safe }}</p>
+
+    <h3>Mẹo nấu ăn:</h3>
+    <p>{{ recipe.ingredient_tips | nl2br | safe }}</p>
+
+    {% if recipe.video_url %}
+    <h3>Youtube hướng dẫn:</h3>
+    <iframe width="560" height="315"
+        src="{{ recipe.video_url | youtube_embed }}"
+        frameborder="0" allowfullscreen>
+    </iframe>
+    {% endif %}
+</div>
+{% endblock %}

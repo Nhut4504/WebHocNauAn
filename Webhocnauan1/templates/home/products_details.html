@@ -1,0 +1,47 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 align="center">{{ product.productname }}</h1>
+    <img src="{{ url_for('static', filename='images/' + product.imageurl) }}" alt="{{ product.productname }}" class="img-fluid mb-3">
+
+    <p><strong>Mô tả:</strong> {{ product.note or "Không có mô tả" }}</p>
+    <p><strong>Đánh giá:</strong> {{ product.rating }} ⭐</p>
+
+    {% if product.instructions %}
+        <p><strong>Nguyên liệu:</strong></p>
+        <p>{{ product.instructions | replace('\n', '<br>') | safe }}</p>
+    {% else %}
+        <p><strong>Hướng dẫn:</strong> Chưa có hướng dẫn</p>
+    {% endif %}
+
+    <h3>Hướng dẫn nấu ăn</h3>
+    {% if recipe_steps %}
+        <ol>
+            {% for step in recipe_steps %}
+                <li>
+                    <p>{{ step.instruction }}</p>
+                    {% if step.image_url %}
+                        <img src="{{ url_for('static', filename='images/' + step.image_url) }}" alt="Bước {{ step.step }}" class="img-fluid mw-100">
+                    {% endif %}
+                    {% if step.video_url %}
+                    <div class="video-container">
+                        <iframe width="560" height="315" src="{{ step.video_url | replace('watch?v=', 'embed/') }}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>Không có bước nấu ăn nào.</p>
+    {% endif %}
+
+    {% if product.ingredient_tips %}
+        <p><strong>Mẹo nấu ăn:</strong> {{ product.ingredient_tips | replace('\n', '<br>') | safe }}</p>
+    {% else %}
+        <p><strong>Mẹo nấu ăn:</strong> Không có</p>
+    {% endif %}
+    
+    <a href="/home/products" class="btn btn-secondary mt-3">Quay lại</a>
+</div>
+{% endblock %}

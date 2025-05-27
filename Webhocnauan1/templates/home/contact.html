@@ -1,0 +1,76 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Liên hệ với chúng tôi</h2>
+
+    <!-- Google Map -->
+    <div class="mb-4">
+        <iframe     
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.773657681621!2d106.5826056!3d10.829769599999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529fcfbc9b7bd%3A0x34a7f32b8e9edb14!2zTmjDoCB04bq_IEJ1w6JuIE3DtG4!5e0!3m2!1svi!2s!4v1682443297589!5m2!1svi!2s"
+            width="100%" height="400" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy">
+        </iframe>
+    </div>
+
+    <!-- Nút mở modal đăng ký -->
+    <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#contactModal">
+        Đăng ký tư vấn miễn phí
+    </button>
+
+    <!-- Thông tin liên hệ -->
+    <div class="row justify-content-center">
+         <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Thông tin liên hệ</h5>
+                    <p class="card-text">Để không ngừng nâng cao chất lượng dịch vụ và đáp ứng tốt hơn...</p>
+                    <ul class="list-unstyled">
+                        <li><strong>📞 SĐT:</strong> <a href="tel:0787763901">078.776.3901</a></li>
+                        <li><strong>📧 Email:</strong> <a href="mailto:gb2kxiix@gmail.com">gb2kxiix@gmail.com</a></li>
+                        <li><strong>📍 Địa chỉ:</strong> Hóc Môn, TP.HCM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal form tư vấn -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="POST" action="/api/contact">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="contactModalLabel">Đăng ký tư vấn miễn phí</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Họ tên</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Nội dung cần tư vấn</label>
+                            <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-success">Gửi thông tin</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,0 +1,18 @@
+<!-- search_bar.html -->
+<div class="hero text-end p-3">
+    <input type="text" id="search-input" placeholder="Nhập tên món..." value="{{ search_query if search_query else '' }}">
+    <button id="search-button">Tìm kiếm</button>
+</div>
+
+<script>
+    document.getElementById('search-button').addEventListener('click', function() {
+        let searchValue = document.getElementById('search-input').value.trim();
+        window.location.href = `/home/products?search=${encodeURIComponent(searchValue)}`;
+    });
+
+    document.getElementById('search-input').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') { 
+            document.getElementById('search-button').click(); 
+        }
+    });
+</script>

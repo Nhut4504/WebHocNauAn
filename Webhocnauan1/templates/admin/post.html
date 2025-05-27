@@ -1,0 +1,25 @@
+{% extends 'base2.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Danh sách bài viết</h2>
+    {% for post in posts %}
+    <div class="card mb-4">
+        {% if post[4] %}
+        <img src="{{ url_for('static', filename=post[4].split('static/')[-1]) }}" class="card-img-top" style="max-height: 400px; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+            <h4 class="card-title">{{ post[1] }}</h4>
+            <p class="card-text">{{ post[2] }}</p>
+            <div class="d-flex justify-content-between">
+                <small class="text-muted">Đăng lúc {{ post[3] }}</small>
+                <form method="POST" action="{{ url_for('admin_delete_post', post_id=post[0]) }}" onsubmit="return confirm('Bạn có chắc muốn xóa bài viết này không?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Xoá</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>Không có bài viết nào.</p>
+    {% endfor %}
+</div>
+{% endblock %}

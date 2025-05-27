@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Thêm món ăn</h2>
+    <form id="addRecipeForm">
+        <div class="mb-3">
+            <label class="form-label">Tên món</label>
+            <input type="text" id="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hình ảnh (URL)</label>
+            <input type="text" id="image" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nguyên liệu</label>
+            <textarea id="ingredients" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Hướng dẫn</label>
+            <textarea id="instructions" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Mẹo nấu ăn</label>
+            <textarea id="ingredient_tips" class="form-control" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Youtube hướng dẫn</label>
+            <textarea id="video_url" class="form-control" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Thêm món ăn</button>
+        <a href="{{ url_for('admin.list_monan') }}" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>
+
+<script>
+document.getElementById("addRecipeForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const recipeData = {
+        name: document.getElementById("name").value,
+        image: document.getElementById("image").value,
+        ingredients: document.getElementById("ingredients").value,
+        instructions: document.getElementById("instructions").value
+    };
+
+    fetch("/api/recipes", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(recipeData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        window.location.href = "{{ url_for('admin.list_monan') }}";
+    })
+    .catch(error => console.error("Lỗi:", error));
+});
+</script>
+{% endblock %}

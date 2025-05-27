@@ -1,0 +1,20 @@
+<!-- templates/home/recipes.html -->
+<form method="get" action="{{ url_for('recipes') }}">
+    <input type="text" name="search" placeholder="Tìm món ăn..." value="{{ search_query }}">
+    <button type="submit">Tìm</button>
+</form>
+
+<ul>
+    {% for r in recipes %}
+    <li>
+        <a href="{{ url_for('recipe_detail', id=r.id) }}">{{ r.name }}</a><br>
+        {% if r.image_url %}
+        <img src="{{ r.image_url }}" alt="{{ r.name }}" width="150">
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+{% if not recipes %}
+    <p>Không tìm thấy món ăn nào.</p>
+{% endif %}

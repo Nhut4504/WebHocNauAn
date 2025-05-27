@@ -1,0 +1,40 @@
+{% extends "base1.html" %}
+
+{% block content %}
+<h1>Quản lý Người Dùng</h1>
+
+<a href="{{ url_for('user_bp.create_user') }}" class="btn btn-primary">Tạo Người Dùng Mới</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tên đầy đủ</th>
+            <th>Tài khoản</th>
+            <th>Email</th>
+            <th>Vai trò</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+            <td>{{ user[4] }}</td>
+            <td>
+                <a href="{{ url_for('user_bp.edit_user', user_id=user[0]) }}" class="btn btn-warning">Sửa</a>
+                <form method="POST"
+                    action="{{ url_for('user_bp.delete_user', user_id=user[0]) }}"
+                    style="display:inline-block"
+                    onsubmit="return confirm('Bạn có chắc muốn xóa người dùng này không?');">
+                    <button type="submit" class="btn btn-sm btn-danger">Xoá</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}  

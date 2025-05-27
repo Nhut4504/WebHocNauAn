@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You can cook</title>
+    <link rel="icon" href="/static/images/istockphoto-1487207711-612x612.jpg">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/leaflet.css">
+    <link rel="stylesheet" href="/static/css/style.css"> <!-- thêm nếu bạn có file CSS riêng -->
+    <script src="/static/leaflet.js"></script>
+    <script src="/static/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/jquery-3.7.1.js"></script>
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar shadow-sm">
+        <div class="container-fluid flex-grow-1">
+          <a class="navbar-brand fw-bold text-warning" href="http://127.0.0.1:5000/home">🍳 Món ngon chờ bạn làm</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" href="/home/products">Các món ăn</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home/post">Bài viết</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/home/contact">Liên hệ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-danger" href="{{ url_for('logout') }}">Đăng xuất</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    <div class="container-fluid">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+        <!-- Footer -->
+        <footer class="bg-dark text-white mt-5 pt-4 pb-3 text-center">
+            <div class="container">
+                <div class="mb-3">
+                    <a href="#" class="text-white me-3">FACEBOOK</a>
+                    <a href="#" class="text-white me-3">INSTAGRAM</a>
+                    <a href="#" class="text-white me-3">EMAIL</a>
+                </div>
+                <div class="mb-3">
+                    <a href="#" class="text-white me-3">Home</a>
+                    <a href="#" class="text-white me-3">About me</a>
+                    <a href="#" class="text-white me-3">Cookbooks</a>
+                </div>
+                <p class="mb-0">&copy;2025 All Rights Reserved. Designed and Developed by Bảo Phạm</p>
+            </div>
+        </footer>
+</body>
+</html>

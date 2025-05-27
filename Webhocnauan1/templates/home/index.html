@@ -1,0 +1,143 @@
+{% extends 'shared/layout.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Món ngon chờ bạn làm</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+        <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    </head>
+<body>
+<!-- Navbar -->
+  
+  <!-- Thanh tìm kiếm -->
+  {% include 'home/search.html' %}
+  
+
+  <!-- Danh sách món ăn -->
+<section class="categories">
+    <h2>Danh Mục Món Ăn</h2>
+    <div class="category-container">
+        <a href="http://127.0.0.1:5000/home/products?category=1" class="category-item">
+            <img src="/static/images/cac-mon-chien.jpg" alt="Món chiên">
+            <p>Món chiên</p>
+        </a>
+        <a href="http://127.0.0.1:5000/home/products?category=2" class="category-item">
+            <img src="/static/images/thit-bo-xao-gi-ngon.jpg" alt="Món xào">
+            <p>Món xào</p>
+        </a>
+        <a href="http://127.0.0.1:5000/home/products?category=3" class="category-item">
+            <img src="/static/images/cac-mon-canh-ngon-30.jpg" alt="Món canh">
+            <p>Món canh</p>
+        </a>
+        <a href="http://127.0.0.1:5000/home/products?category=4" class="category-item">
+            <img src="/static/images/chao-chim-bo-cau.jpg" alt="Món cháo">
+            <p>Món cháo</p>
+        </a>
+        <a href="http://127.0.0.1:5000/home/products?category=5" class="category-item">
+            <img src="/static/images/Diem-mat-10-mon-banh-ngot-Viet-Nam-hap-dan-khong-kem-gi-hang-ngoai-1.jpg" alt="Món bánh">
+            <p>Món bánh</p>
+        </a>
+    </div>
+</section>
+    <!-- Lựa chọn tốt -->
+    <section class="popular-posts">
+        <h2><i class="fas fa-bookmark"></i> Lựa chọn tốt</h2>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- Bài viết 1 -->
+                <div class="swiper-slide">
+                    <a href="http://127.0.0.1:5000/home/products_details/1">
+                        <img src="/static/images/comchien.jpg" alt="Món ngon từ chiên">
+                        <p>Cơm chiên thập cẩm</p>
+                        <h3>Cách làm cơm chiên thập cẩm</h3>
+                    </a>
+                </div>
+                <!-- Bài viết 2 -->
+                <div class="swiper-slide">
+                    <a href="http://127.0.0.1:5000/home/products_details/2">
+                        <img src="/static/images/mixaohaisan.jpg" alt="Món ngon từ xào">
+                        <p>Mì xào hải sản</p>
+                        <h3>Cách làm mì xào hải sản</h3>
+                    </a>
+                </div>
+                <!-- Bài viết 3 -->
+                <div class="swiper-slide">
+                    <a href="http://127.0.0.1:5000/home/products_details/4">
+                        <img src="/static/images/canhkhoaimo.jpg" alt="Món ngon từ canh">
+                        <p>Canh khoai mỡ</p>
+                        <h3>Cách làm canh khoai mỡ</h3>
+                    </a>
+                </div>
+                <!-- Bài viết 4 -->
+                <div class="swiper-slide">
+                    <a href="http://127.0.0.1:5000/home/products_details/5">
+                        <img src="/static/images/chaoga.jpg" alt="Món ngon từ cháo">
+                        <p>Cháo gà</p>
+                        <h3>Cách làm cháo gà</h3>
+                    </a>
+                </div>
+                <!-- Bài viết 5 -->
+                <div class="swiper-slide">
+                    <a href="http://127.0.0.1:5000/home/products_details/6">
+                        <img src="/static/images/banhflan.jpg" alt="Món ngon từ bánh">
+                        <p>Bánh Flan</p>
+                        <h3>Cách làm Bánh flan</h3>
+                    </a>
+                </div>
+            </div>
+            <!-- Nút điều hướng -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </section>
+
+        <!-- Các công thức nổi bật -->
+        <section class="featured-recipes">
+            <h2><i class="fas fa-star"></i> Các Món Ngon</h2>
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    {% for recipe in recipes %}
+                    <div class="swiper-slide recipe-card">
+                        <img src="/static/images/{{ recipe.image_url if recipe.image_url else 'default.jpg' }}" 
+                             alt="{{ recipe.name }}">
+                        <div class="recipe-info">
+                            <h3><a href="/recipes/{{ recipe.id }}">{{ recipe.name }}</a></h3>
+                            <p>{{ recipe.ingredients }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <strong>Chatbot</strong>
+            </div>
+            <div class="card-body">
+                <div id="chat-box" style="height: 200px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;"></div>
+                <div class="input-group">
+                    <input type="text" id="chat-input" class="form-control" placeholder="Hỏi về cách nấu ăn, nguyên liệu...">
+                    <button onclick="sendMessage()" class="btn btn-primary">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>     
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/script.js?v=2"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+</html>
+{% endblock %}
+
